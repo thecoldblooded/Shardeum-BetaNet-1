@@ -1,4 +1,4 @@
-# Shardeum Betanet 1.1 Güncel Kurulum Rehberi - Hercules
+# Shardeum Betanet 1.3.1 Güncel Kurulum Rehberi - Hercules
 ![image](https://user-images.githubusercontent.com/101635385/216447120-a1add722-5d7d-4403-b2a9-85ef054ba631.png)
 
 
@@ -43,10 +43,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 
 
-## 🟢 2. Adım Kurulum
+## 🟢 Matemask Cüzdan sıfırlama
 
-
-İlk defa kurulum yapacak olanlar Cüzdan sıfırlama ve eski kurulumu kaldırma adımını yapmasına gerek yoktur. <br> 
 
 
 #### Matemask cüzdanımızı sıfırlıyoruz.  Ayarlar / Gelişmiş / Hesabı sıfırla  <br><br> 
@@ -56,30 +54,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 <br><br>
 
-## 🟢  Daha önceki kurulumu kaldırıyoruz.
-
-```shell
-cd ~/.shardeum
-```
-
-```shell
-./cleanup.sh
-```
-
-```shell
-cd ~/
-```
-
-```shell
-rm -rf .shardeum
-```
-
-```shell
-rm installer.sh
-```
 
 
-## 🟢 Yeni Kuruluma başlıyoruz.
+## 🟢 Kurulumuna başlıyoruz.
 
 
 ```shell
@@ -171,11 +148,11 @@ Block Explorer URL :	https://explorer-sphinx.shardeum.org/ <br><br>
 ## 🟢 6. Faucet ve Stake Etme 
 
 
-1- Discord Sunucusuna girin ve #faucet-1-1 kanalından SHM token alabilirsiniz. 
+1- Discord Sunucusuna girin ve #sphinx-faucet-1-3 kanalından SHM token alabilirsiniz. 
 
  * [Discord FAUCET](https://discord.gg/shardeum)
 
-![image](https://user-images.githubusercontent.com/101635385/216570649-59485b8a-27ac-4ef7-8308-0187d7dd45bb.png)
+![image](https://github.com/herculessx/Shardeum-BetaNet/assets/101635385/0c6839ab-f58e-4330-8c36-dac583bab6af)
 
 ![image](https://user-images.githubusercontent.com/101635385/216561514-37ab1ead-9801-421e-939b-459d93f9807b.png)
 
@@ -225,6 +202,57 @@ Bu komut ile 8080 portta çalışan başka bir node varmı diye önce kontrol ed
 
 ```shell
  lsof -i -P -n | grep LISTEN
+```
+
+
+
+ ## 🟢 ip 0.0.0.0 hatası alırsanız çözümü
+
+Bu komut ile 8080 portta çalışan başka bir node varmı diye önce kontrol edin. 
+
+```shell
+cd ~/.shardeum
+```
+
+```shell
+./shell.sh
+```
+
+Bu adresten ip adresinizi öğrenin.
+
+```shell
+curl https://ipinfo.io/ip
+```
+
+Aşağıdaki komuta ip adresinizi yazın.
+
+```shell
+operator-cli set external_ip IPADRESINIZ
+```
+Aşağıdaki komuta nodu kurarken yazdığınız external port bilgibizi yazın. ( default 9001)
+```shell
+operator-cli set external_port PORTUNUZ
+```
+Gui'yi başlatın
+```shell
+operator-cli gui start
+```
+Ardından (https://NODEIPADRESINIZ:8080 ( chrome yada hangi tarayıcıyı kullanıyorsanız node ip adresiniz ve port girdiğinizde) sayfaya gidip Maintenance kısmından node unuzu Start edin.
+
+
+
+
+## 🟢 Otomatik başlatma ( Takip ekranı )
+
+Aşağıdaki kodu bir screen açarak shardeum nodenizi takip edebilirsiniz. Stop konumuna düştüğünde otomatik olarak başlatır. Devamlı Nodem stopmu oldu derdi ortadan kalkar. Shardeum monitor Msahin ile beraber geliştirilmiştir. 
+
+
+```shell
+screen -S monitor
+```
+
+```shell
+wget -q -O node_control.sh https://raw.githubusercontent.com/mesahin001/shardeum/main/node_control.sh && chmod +x node_control.sh && sudo /bin/bash node_control.sh
 ```
 
 
